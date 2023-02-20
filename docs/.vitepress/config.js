@@ -3,6 +3,7 @@ import { footer } from './config/footer'
 import { nav, sidebar } from './config/catalogue'
 
 export default {
+	base: '/',
 	title: '一诺滚雪球',
 	description: '前端笔记',
 	head: [
