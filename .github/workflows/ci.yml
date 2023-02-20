@@ -11,9 +11,12 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        matrix:
+            node_version: [14, 16, 18]
         steps:
             - name: Checkout
               uses: actions/checkout@v3
+              strategy:
 
             - name: Install pnpm
               uses: pnpm/action-setup@v2
@@ -33,5 +36,5 @@ jobs:
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
               with:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
                   publish_dir: docs/.vitepress/dist
