@@ -12,7 +12,7 @@ export default {
 	serviceWorker: true,
 	appearance: true,
 	themeConfig: {
-		lastUpdated: 'Last Updated', // string | boolean
+		lastUpdated: true, // string | boolean
 		socialLinks: [{ icon: 'github', link: 'https://github.com/f5l5y5/vitepress' }],
 		cleanUrls: true,
 		nav,
