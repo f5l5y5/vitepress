@@ -27,7 +27,6 @@
 #                   algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
 #                   site-url: 'https://Github-f5l5y5-vitepress-refs-heads-main/'
 #                   override-config: true
-# # Github-f5l5y5-vitepress-refs-heads-main
 
 name: Github Pages -> Algolia Crawler
 on:
@@ -54,5 +53,5 @@ jobs:
                   crawler-name: gpages-github-actions-test-${{ github.ref }}
                   algolia-app-id: ${{ secrets.ALGOLIA_APP_ID }}
                   algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
-                  site-url: 'https://blog.yinuosnowball.top/'
+                  site-url: 'https://community.algolia.com/algoliasearch-crawler-github-actions/public/github-pages/'
                   override-config: true
