@@ -42,15 +42,32 @@ jobs:
         needs: deploy
         runs-on: ubuntu-latest
         steps:
-            - name: Algolia crawler creation and crawl
-              uses: algolia/algoliasearch-crawler-github-actions@v1.0.10
-              id: algolia_crawler
-              with: # mandatory parameters
+            - name: Checkout Repo
+              uses: actions/checkout@v2
+              # We don't know when the site will be deployed, we just wait a few seconds
+            # Better solutions can be found
+            - name: Sleep for 30s
+              run: sleep 30
+
+            - name: Github-pages-MAIN => Algolia crawler creation and recrawl (Push on Main branch)
+              uses: algolia/algoliasearch-crawler-github-actions@v1
+              id: crawler_push
+              with:
                   crawler-user-id: ${{ secrets.CRAWLER_USER_ID }}
                   crawler-api-key: ${{ secrets.CRAWLER_API_KEY }}
                   algolia-app-id: ${{ secrets.ALGOLIA_APP_ID }}
                   algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
-                  site-url: 'https://blog.yinuosnowball.top'
+                  site-url: 'https://blog.yinuosnowball.top/'
+                  override-config: true
+            # - name: Algolia crawler creation and crawl
+            #   uses: algolia/algoliasearch-crawler-github-actions@v1.0.10
+            #   id: algolia_crawler
+            #   with: # mandatory parameters
+            #       crawler-user-id: ${{ secrets.CRAWLER_USER_ID }}
+            #       crawler-api-key: ${{ secrets.CRAWLER_API_KEY }}
+            #       algolia-app-id: ${{ secrets.ALGOLIA_APP_ID }}
+            #       algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
+            #       site-url: 'https://blog.yinuosnowball.top'
 
             # - uses: actions/checkout@v2
             # - name: Get the content of algolia.json as config
