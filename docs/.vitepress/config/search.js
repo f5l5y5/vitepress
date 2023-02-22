@@ -1,7 +1,7 @@
 export const algolia = {
-	appId: '...',
-	apiKey: '...',
-	indexName: '...',
+	appId: 'GBUSHNNY56',
+	apiKey: 'bf1500b7ab565d7217c3bc597bb83a1c',
+	indexName: 'yinuosnowball',
 	locales: {
 		zh: {
 			placeholder: '搜索文档',
