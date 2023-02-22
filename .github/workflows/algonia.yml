@@ -25,7 +25,7 @@ jobs:
                   crawler-api-key: ${{ secrets.CRAWLER_API_KEY }}
                   algolia-app-id: ${{ secrets.ALGOLIA_APP_ID }}
                   algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
-                  site-url: 'https://blog.yinuosnowball.top/'
+                  site-url: 'https://Github-f5l5y5-vitepress-refs-heads-main/'
                   override-config: true
 # Github-f5l5y5-vitepress-refs-heads-main
 
