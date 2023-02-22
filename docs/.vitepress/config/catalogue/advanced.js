@@ -35,7 +35,12 @@ const advancedSidebar = {
 			text: '设计模式',
 			collapsable: true,
 			sidebarDepth: 2,
-			children: [['', 'js实现']]
+			items: [
+				{ link: '/pages/advanced/design/', text: '前言' },
+				{ link: '/pages/advanced/design/creational', text: '1-创建型模式' },
+				{ link: '/pages/advanced/design/structural', text: '2-结构型模式' },
+				{ link: '/pages/advanced/design/behavioral', text: '3-行为型模式' }
+			]
 		}
 	],
 	'/pages/advanced/refactoring/': [

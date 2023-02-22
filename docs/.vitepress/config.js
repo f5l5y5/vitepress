@@ -11,8 +11,8 @@ export default {
 	],
 	serviceWorker: true,
 	appearance: true,
+	lastUpdated: true, // string | boolean
 	themeConfig: {
-		lastUpdated: true, // string | boolean
 		socialLinks: [{ icon: 'github', link: 'https://github.com/f5l5y5/vitepress' }],
 		cleanUrls: true,
 		nav,
