@@ -2,6 +2,11 @@ export const algolia = {
 	appId: 'GBUSHNNY56',
 	apiKey: 'bf1500b7ab565d7217c3bc597bb83a1c',
 	indexName: 'yinuosnowball',
+	// safetyChecks: {
+	// 	beforeIndexPublishing: {
+	// 		maxLostRecordsPercentage: 100
+	// 	}
+	// },
 	locales: {
 		zh: {
 			placeholder: '搜索文档',

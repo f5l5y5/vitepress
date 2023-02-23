@@ -1,5 +1,4 @@
 name: Deploy
-
 on:
     push:
         branches:
@@ -7,7 +6,6 @@ on:
     pull_request:
         branches:
             - main
-
 jobs:
     deploy:
         runs-on: ubuntu-latest
@@ -16,11 +14,9 @@ jobs:
                 node-version: [18]
         steps:
             - uses: actions/checkout@v3
-
             - uses: pnpm/action-setup@v2
               with:
                   version: 7
-
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v3
               with:
@@ -28,10 +24,8 @@ jobs:
                   cache: 'pnpm'
             - name: Install dependencies
               run: pnpm install
-
             - name: Build
               run: pnpm build
-
             - name: Deploy
               uses: JamesIves/github-pages-deploy-action@releases/v3
               with:
@@ -43,3 +37,45 @@ jobs:
             #   with:
             #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             #       publish_dir: docs/.vitepress/dist
+
+    # algolia:
+    #     needs: deploy
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - name: Checkout Repo
+    #           uses: actions/checkout@v2
+    #           # We don't know when the site will be deployed, we just wait a few seconds
+    #         # Better solutions can be found
+    #         - name: Sleep for 30s
+    #           run: sleep 30
+
+    #         - name: Github-pages-MAIN => Algolia crawler creation and recrawl (Push on Main branch)
+    #           uses: algolia/algoliasearch-crawler-github-actions@v1
+    #           id: crawler_push
+    #           with:
+    #               crawler-user-id: ${{ secrets.CRAWLER_USER_ID }}
+    #               crawler-api-key: ${{ secrets.CRAWLER_API_KEY }}
+    #               algolia-app-id: ${{ secrets.ALGOLIA_APP_ID }}
+    #               algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
+    #               site-url: 'https://f5l5y5.github.io/vitepress/'
+    #               override-config: true
+    # - name: Algolia crawler creation and crawl
+    #   uses: algolia/algoliasearch-crawler-github-actions@v1.0.10
+    #   id: algolia_crawler
+    #   with: # mandatory parameters
+    #       crawler-user-id: ${{ secrets.CRAWLER_USER_ID }}
+    #       crawler-api-key: ${{ secrets.CRAWLER_API_KEY }}
+    #       algolia-app-id: ${{ secrets.ALGOLIA_APP_ID }}
+    #       algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
+    #       site-url: 'https://blog.yinuosnowball.top'
+
+    # - uses: actions/checkout@v2
+    # - name: Get the content of algolia.json as config
+    #   id: algolia_config
+    #   run: echo "config=$(cat algolia.json | jq -r tostring)" >> $GITHUB_OUTPUT
+    # - name: Push indices to Algolia
+    #   uses: signcl/docsearch-scraper-action@master
+    #   env:
+    #       APPLICATION_ID: ${{ secrets.ALGOLIA_APP_ID }}
+    #       API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+    #       CONFIG: ${{ steps.algolia_config.outputs.config }}
