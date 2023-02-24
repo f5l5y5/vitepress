@@ -10,7 +10,7 @@
     "prettier": "prettier --write \"./docs/pages/*.{md,vue,js} \"",
     "prepare": "husky install",
     "lint-staged": "lint-staged",
-    "test": "mocha test --compilers js:babel-core/register"
+    "test": "jest"
   },
   "lint-staged": {
     "*.md": "prettier --write"
@@ -29,6 +29,7 @@
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "husky": "^8.0.3",
+    "jest": "^29.4.3",
     "lint-staged": "^13.1.2",
     "prettier": "^2.8.4",
     "vitepress": "1.0.0-alpha.46",
