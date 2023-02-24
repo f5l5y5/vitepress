@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
     "prettier": "prettier --write \"./docs/pages/*.{md,vue,js} \"",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "test": "mocha test --compilers js:babel-core/register"
   },
   "lint-staged": {
     "*.md": "prettier --write"
