@@ -1,7 +1,7 @@
 const projectNav = {
   text: '项目',
   items: [
-    { text: '工程化配置', link: '/pages/project/main/editorconfig' },
+    { text: '工程化配置', link: '/pages/project/main/standard' },
     { text: 'B端', link: '/pages/project/toB/' },
     { text: 'C端', link: '/pages/project/toC/h5' },
   ],
@@ -14,6 +14,7 @@ const projectSidebar = {
       collapsable: true,
       sidebarDepth: 2,
       items: [
+        { link: '/pages/project/main/standard', text: '项目统一标准' },
         { link: '/pages/project/main/editorconfig', text: 'editorconfig' },
         { link: '/pages/project/main/prettier', text: 'prettier' },
         { link: '/pages/project/main/eslint', text: 'eslint' },

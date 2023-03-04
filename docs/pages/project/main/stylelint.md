@@ -310,30 +310,25 @@ rules 定义了一个对象，属性名为规则名称，属性值为规则取�
 规则名称主要由两个部分组成，第一部分描述该规则应用于什么东西，第二部分表示该规则检查了什么。
 
 ```js
-'number-leading-zero'
-// ↑          ↑
-// the thing  what the rule is checking
+'number-leading-zero' // the thing  what the rule is checking
 ```
 
 当规则名称应用于整个样式表时只包含第二个部分：
 
 ```js
 'no-eol-whitespace'
-'indentation'
-//    ↑
-// what the rules are checking
+'indentation' // what the rules are checking
 ```
 
 当规则名称不同时，规则取值也不同。我们可以将某个规则设置为 null 禁用该规则。
 
-```js
+```ts
 {
   "rules": {
     "at-rule-blacklist": string|[],
     "at-rule-empty-line-before": "always"|"never",
     "at-rule-name-case": "lower"|"upper",
     "block-no-empty": null,
-    ...
   }
 }
 ```
@@ -381,7 +376,7 @@ message：当一个规则被触发时，如果你想实现一个自定义的消�
 
 （4）processors
 
-Processors 是 Stylelint 的钩子函数，只能用在命令行和 Node API，不适用于 PostCSS 插件。Processors 可以使 Stylelint 检测非样式表文件中的 CSS。例如，可以检测 HTML 内中<style>标签中的 CSS，Markdown 文件中代码块或 JavaScript 中的字符串。
+Processors 是 Stylelint 的钩子函数，只能用在命令行和 Node API，不适用于 PostCSS 插件。Processors 可以使 Stylelint 检测非样式表文件中的 CSS。例如，可以检测 HTML 内中\<style\>标签中的 CSS，Markdown 文件中代码块或 JavaScript 中的字符串。
 
 使用 Processors 的话，需要在配置中添加一个”processors“数组，包含“定位器”标识出你要使用的 processors。同上面的 extends，一个“定位器”可以是一个 npm 模块名，一个绝对路径，或一个相对于要调用的配置文件的路径。
 

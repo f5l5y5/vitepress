@@ -43,7 +43,7 @@ EditorConfig 文件采用类似 INI 的文件格式。在 EditorConfig 文件中
 
 - LF 是 line feed 的缩写，中文意思也是换行，linux。
 
-## EditorConfig 文件从上到下读取，最先发现的规则优先。
+### EditorConfig 文件从上到下读取，最先发现的规则优先。
 
 EditorConfig 通过以下通配符来匹配特殊文件：
 
