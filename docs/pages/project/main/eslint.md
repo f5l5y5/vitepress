@@ -68,7 +68,14 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
-  overrides: [],
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx', '*.vue'],
+      rules: {
+        'no-undef': 'off',
+      },
+    },
+  ],
   globals: {
     defineProps: 'readonly',
     defineEmits: 'readonly',
@@ -221,6 +228,8 @@ rules: {
 ```
 
 (7) overrides
+
+针对特定的文件，使用指定的校验方式。
 
 ## 5、运行 ESLint 检查文件
 

@@ -1,16 +1,16 @@
 # prettier
 
-## 1 什么是 Prettier
+## 1、什么是 Prettier
 
 Prettier 是一个代码格式化工具，可以格式化代码，但不具备代码检查功能，它可以通过解析代码并使用自己的规则重新打印它，并考虑最大行长来强制一致的样式，并在必要时包装代码，如今，它已成为解决所有代码格式问题的优选方案，支持多种语言，可以将 ESLint 和 Prettier 结合使用，提高代码质量。
 
-## 2 为什么要用 Prettier
+## 2、为什么要用 Prettier
 
 上面 Prettier 的定义一看，是不是觉得和 ESLint 差不了多少？那么，有了 ESLint，为什么还要用 Prettier 呢？
 
 其实呀，**ESLint 虽然是一个代码检测工具，可以检测代码质量问题并给出提示，但是提供的格式化功能有限，在代码风格上面做的不是很好，并且也只能格式化 JS，不支持 CSS,HTML 等语言。而在代码风格上面，Prettier 具有更加强大的功能，并且能够支持包括 JavaScript、TypeScript、各种 CSS、Vue 和 Markdown 等前端绝大部分的语言和文件格式。** 因此，我们一般会将 ESLint 和 Prettier 一起结合起来使用，用 ESLint 进行代码校验，用 Prettier 统一代码风格。
 
-## 3 安装 Prettier
+## 3、安装 Prettier
 
 （1）脚手架自动安装
 
@@ -24,7 +24,7 @@ Prettier 是一个代码格式化工具，可以格式化代码，但不具备�
 npm install prettier --save-dev
 ```
 
-## 4 安装 eslint-config-prettier
+## 4、安装 eslint-config-prettier
 
 安装好 Prettier 之后，我们还需要安装 eslint-config-prettier，这是因为 eslint 和 prettier 里面的一些规则可能会存在冲突，这个时候我们就需要安装 eslint-config-prettier，**并且关掉所有和 prettier 冲突的 eslint 配置**。
 
@@ -40,7 +40,7 @@ npm install eslint-config-prettier --save-dev
 extends: ["eslint:recommended", "prettier"],
 ```
 
-## 5 安装 eslint-plugin-prettier
+## 5、安装 eslint-plugin-prettier
 
 接下来，我们还需要安装 eslint-plugin-prettier，eslint-plugin-prettier 的作用时是将 prettier 的能力集成到 eslint 中，使得我们在运行 eslint 检查我们的代码时，**能够按照 prettier 的规则检查代码规范性，并进行修复**。
 
@@ -69,7 +69,7 @@ npm install eslint-plugin-prettier
 }
 ```
 
-## 6 配置文件
+## 6、配置文件
 
 Prettier 和 ESLint 一样，支持我们通过配置文件的方式，实现自定义配置，覆盖原来的 Prettier 配置。
 
@@ -127,12 +127,21 @@ module.exports = {
 }
 ```
 
-## 7 忽略某些文件的格式化
+## 7、忽略某些文件的格式化
 
 Prettier 和 ESLint 一样，也支持忽略对某些文件的格式化。如果我们存在一些不需要格式化的文件，可以在根目录创建 **.prettierignore** 文件，并且将不需要格式化的文件或目录名称写在该文件中。
 
 ```
 dist node_modules .eslintignore .prettierignore
+```
+
+## 8、格式化命令
+
+```js
+// 格式化所有文件
+npx prettier --write .
+// 格式化app目录下的所有文件
+prettier --write app/
 ```
 
 ## vscode 中使用 prettier
@@ -142,4 +151,36 @@ dist node_modules .eslintignore .prettierignore
 ```json
   "editor.formatOnSave": true,// 开启自动保存
   "editor.defaultFormatter": "esbenp.prettier-vscode", // 默认格式化工具选择prettier
+  // 设定特定语言
+  "[vue]": {
+	"editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+
 ```
+
+## Prettier 配合 EditorConfig 使用说明
+
+如果你不知道什么是 editorConfig，或者不知道怎么用，请看 EditorConfig 使用详解。
+
+editorconfig 和 prettier 其实是相辅相成的，是互不矛盾的，共同协作来格式化代码。
+
+editorConfig 中 indent_style 控制的是：编辑器使用制表符（tab）缩进，还是空格（space）缩进，控制编辑器的缩进风格。
+
+prettier 中的 useTabs 控制的是：是否使用制表符缩进，而不使用空格。
+
+如果使用制表符缩进，即 useTabs 值为 true，如果配置了 editorconfig 文件，并安装 editorconfig 插件，则编辑器缩进距离取值为 editorconfig 文件配置的值。如果 indent_style = space，则先取 indent_size 的值，如果没有则取 tab_width 的值；如果 indent_style = tab，则先取 tab_width 的值，如果没有则取 indent_size 的值。如果 useTabs 值为 false，则取 prettier 文件中 tabWidth 的值。
+
+- useTabs = true ----> indent-style = space ----> indent_size/tab_width
+- useTabs = true ----> indent-style = tab ----> tab_width/indent_size
+- useTabs = false----> prettier ----> tabWidth
+
+如果没有安装 editorconfig 插件，则 useTabs 为 true，取值为编辑器 tabSize 值，如果 useTabs 为 false，取值为 tab_width 值。
+
+优先级说明：
+
+editorConfig 的优先级高于编辑器设置的值，前提是编辑器安装了 EditorConfig 插件。
+
+prettier 中 useTabs 的优先级高于 editorConfig 中的 indent_style。
