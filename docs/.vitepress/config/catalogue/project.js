@@ -18,7 +18,7 @@ const projectSidebar = {
         { link: '/pages/project/main/prettier', text: 'prettier' },
         { link: '/pages/project/main/eslint', text: 'eslint' },
         { link: '/pages/project/main/stylelint', text: 'stylelint' },
-        { link: '/pages/project/main/commitlint', text: 'commitlint' },
+        { link: '/pages/project/main/commitlint', text: 'husky+lint-staged+commitlint' },
       ],
     },
   ],
