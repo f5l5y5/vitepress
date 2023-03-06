@@ -13,11 +13,9 @@ export default {
   appearance: true,
   lastUpdated: true, // string | boolean
   themeConfig: {
-    themeConfig: {
-      editLink: {
-        pattern: 'https://github.com/f5l5y5/vitepress/edit/main/docs/:path',
-        text: 'Edit this page on GitHub',
-      },
+    editLink: {
+      pattern: 'https://github.com/f5l5y5/vitepress/edit/main/docs/:path',
+      text: 'Edit this page on GitHub',
     },
     socialLinks: [{ icon: 'github', link: 'https://github.com/f5l5y5/vitepress' }],
     cleanUrls: true,
