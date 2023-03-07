@@ -2,6 +2,7 @@ const projectNav = {
   text: '项目',
   items: [
     { text: '工程化配置', link: '/pages/project/main/standard' },
+    { text: '代码规范', link: '/pages/project/code/vueStandard' },
     { text: 'B端', link: '/pages/project/toB/' },
     { text: 'C端', link: '/pages/project/toC/h5' },
   ],
@@ -21,6 +22,14 @@ const projectSidebar = {
         { link: '/pages/project/main/stylelint', text: 'stylelint' },
         { link: '/pages/project/main/commitlint', text: 'husky+lint-staged+commitlint' },
       ],
+    },
+  ],
+  '/pages/project/code/': [
+    {
+      text: '移动端开发基础',
+      collapsable: true,
+      sidebarDepth: 2,
+      items: [{ link: '/pages/project/code/vueStandard', text: 'vue项目规范' }],
     },
   ],
   '/pages/project/toC/': [
