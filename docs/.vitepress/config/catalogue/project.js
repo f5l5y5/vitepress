@@ -21,6 +21,7 @@ const projectSidebar = {
         { link: '/pages/project/main/eslint', text: 'eslint' },
         { link: '/pages/project/main/stylelint', text: 'stylelint' },
         { link: '/pages/project/main/commitlint', text: 'husky+lint-staged+commitlint' },
+        { link: '/pages/project/main/oss', text: '打包上传ali-oss' },
       ],
     },
   ],
