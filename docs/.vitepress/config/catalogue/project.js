@@ -29,7 +29,7 @@ const projectSidebar = {
     {
       text: '移动端开发基础',
       collapsable: true,
-      sidebarDepth: 2,
+      sidebarDepth: 3,
       items: [{ link: '/pages/project/code/vueStandard', text: 'vue项目规范' }],
     },
   ],
@@ -37,7 +37,7 @@ const projectSidebar = {
     {
       text: '移动端开发基础',
       collapsable: true,
-      sidebarDepth: 2,
+      sidebarDepth: 3,
       items: [
         { link: '/pages/project/toC/mobile', text: '知识点' },
         { link: '/pages/project/toC/h5', text: 'h5项目说明' },
