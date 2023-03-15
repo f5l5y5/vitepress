@@ -111,12 +111,12 @@ screen.height
 
 1. 在 PC 端，视口指的是浏览器的可视区域。其宽度和浏览器窗口的宽度保持一致。在 CSS 标准文档中，视口也被称为初始包含块，它是所有 CSS 百分比宽度推算的根源。**默认情况下在 pc 端，一个 CSS 像素 = 一个物理像素**
 
-- '最干净的显示区域',document.documentElement.clientWidth 最干净的显示区域 3072
-- '最干净的显示区域+滚动条',window.innerWidth 最干净的显示区域+滚动条 3072
-- '最干净的显示区域+滚动条+浏览器边框',window.outerWidth 最干净的显示区域+滚动条+浏览器边框 1538
-- '与浏览器无关，当前设备显示分辨率横向的值',screen.width 与浏览器无关，当前设备显示分辨率横向的值 1536
+- document.documentElement.clientWidth 最干净的显示区域 3072
+- window.innerWidth 最干净的显示区域+滚动条 3072
+- window.outerWidth 最干净的显示区域+滚动条+浏览器边框 1538
+- screen.width 与浏览器无关，当前设备显示分辨率横向的值 1536
 
-2. 移动端的视口与 PC 端不同，有三个视口
+1. 移动端的视口与 PC 端不同，有三个视口
 
 - 布局视口
 - 视觉视口
@@ -149,16 +149,16 @@ screen.height
 
 ### 描述一下屏幕
 
-已 iphone6 为例：
+iphone6 为例：
 
 1. 物理像素 750px
-2. 设备独立像素 375px （必须要写 375px 才能使 750 个发光点亮，之前以为写 375pxcss 对应 375px 独立像素？不是）
+2. 设备独立像素 375px （必须要写 375px 才能使 750 个发光点亮，之前以为写 375pxcss 对应 375px 独立像素，理想视口下）
 3. css 像素 980px
 
-### 3.3 理想视口标准 不存在 (ideal layout)
+### 3.3 理想视口标准 (ideal layout)
 
-- 与屏幕(设备独立像素)等宽的布局视口, 称为理想视口。 是一种标准。
-  - 理想视口是特殊的布局视口,与设备独立像素相等，980px 变成 375px
+与屏幕(设备独立像素 device-width)等宽的布局视口(width), 称为理想视口。 是一种标准。理想视口是特殊的布局视口,与设备独立像素相等，980px 变成 375px,ui 开发以 375 基准进行设计。
+
 - 理想视口特点:
   - 用户不需要缩放和滚动条就能看到网站的全部内容
   - 针对移动端的设计稿更容易开发
@@ -166,17 +166,15 @@ screen.height
 - 设置理想视口标准的方法
 
   ```js
-  //
+  // 获取的方法, 始终是等于独立像素
+  screen.width/height
+  // 布局视口设置  设备独立像素宽度
   <meta name="viewport" content="width=device-width" />
   // 不缩放
   <meta name="viewport" content="initial-scale=1.0" />
   // 合体
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   ```
-
-  **问题：**
-
-  - 例如 iphone6 的设备独立像素为 375px 宽度充满屏幕 css 像素设置为 375px 即可，但是 ipx 设独是 414px，之前设置的 375px 不会充满屏幕。所以需要适配。 ![image.png](/project/h5/ip6.png) ![image.png](/project/h5/ip6p.png)
 
 【总结】不写 meta 标签(不符合理想视口标准)
 
@@ -235,7 +233,13 @@ meta-viewport 标签是 2007 苹果引进，用于移动端布局视口的控制
 
 ## 适配
 
-一、为什么要适配 <br> 由于移动端设备的屏幕尺寸大小不一，会出现同一个元素在两个不同手机上显示效果不一样（比例不同）要想现实一致，要进行适配。**无论采用何种适配方式，中心原则永远不变，等比** <br> 主流适配方式
+一、为什么要适配 <br> 由于移动端设备的屏幕尺寸大小不一，会出现同一个元素在两个不同手机上显示效果不一样（比例不同）要想现实一致，要进行适配。**无论采用何种适配方式，中心原则永远不变，等比** <br>
+
+**为什么要适配：**
+
+- 例如 iphone6 的设备独立像素为 375px 宽度充满屏幕 css 像素设置为 375px 即可，但是 ipx 设独是 414px，之前设置的 375px 不会充满屏幕。所以需要适配。 ![image.png](/project/h5/ip6.png) ![image.png](/project/h5/ip6p.png)
+
+主流适配方式
 
 1.  viewport 适配
 2.  rem 适配
@@ -297,6 +301,11 @@ em 和 rem
     <body>
       <div id="demo"></div>
       <script type="text/javascript" >
+      {/* fontSize:100px  ----> 设计值/100
+        375px ----> 375px/100px  ----> 3.75rem
+        1rem  ----> 375px/3.75rem   ---->  100px
+        1px   ----> 1rem/100px ----> 0.01rem */}
+
         function adapter (){
           //获取手机横向的设备独立像素
           const dip = document.documentElement.clientWidth
@@ -311,6 +320,27 @@ em 和 rem
       </script>
     </body>
   </html>
+```
+
+### 方案一 less 版本
+
+按照根元素设置为 100，单位是 345/100 rem 即可
+
+```less
+@font: 100rem;
+* {
+  margin: 0;
+  padding: 0;
+}
+#demo {
+  width: 345 / @font;
+  height: 150 / @font;
+  margin: 0 auto;
+  margin-top: 15 / @font;
+  background-color: #87ceeb;
+  /* border: 0.01rem solid black; */ /* 边框参与适配*/
+  border: 1px solid black; /* 边框不参与适配*/
+}
 ```
 
 2. 方案二 搜狐唯品会
@@ -345,10 +375,14 @@ em 和 rem
 	<body>
 		<div id="demo"></div>
 		<script type="text/javascript" >
+      {/* fontSize:37.5px ----> 设计值/(设计稿宽度/10)
+        375px ----> 375px/37.5px ----> 10rem
+        1rem  ----> 375px/10rem  ----> 37.5px
+        1px   ----> 1rem/37.5px  ----> 0.026...rem */}
 			function adapter (){
 				//获取手机横向的设备独立像素
 				const dip = document.documentElement.clientWidth
-				//计算根字体大小(100是我们自己指定的，375是设计稿宽度)
+				//计算根字体大小(37.5是我们自己指定的，375是设计稿宽度)
 				const rootFontSize = dip / 10
 				//设置根字体
 				document.documentElement.style.fontSize = rootFontSize + 'px'
@@ -378,27 +412,6 @@ em 和 rem
   margin-top: (15 / @font);
   margin: 0 auto;
   background-color: skyblue;
-}
-```
-
-### 方案一 less 版本
-
-按照根元素设置为 100，单位是 345/100 rem 即可
-
-```less
-@font: 100rem;
-* {
-  margin: 0;
-  padding: 0;
-}
-#demo {
-  width: 345 / @font;
-  height: 150 / @font;
-  margin: 0 auto;
-  margin-top: 15 / @font;
-  background-color: #87ceeb;
-  /* border: 0.01rem solid black; */ /* 边框参与适配*/
-  border: 1px solid black; /* 边框不参与适配*/
 }
 ```
 
@@ -672,7 +685,13 @@ btn.addEventListener('touchstart', (e) => {
 
 ## 图片高清显示
 
-为什么移动端需要@2x 或者@3x 的图片 ? :::tip 移动端开发过程中，@2x 或者@3x 的图标，是因为手机的 dpr(设备像素比不同)，我们> 需要根据 dpr 来修改不同大小的图标，来解决不同设备用户视觉体验。 dpr=2 说明 1css 最小像素点对应 2 个物理像素，如果图片的 ui 最小宽度达不到会出现失真 :::
+为什么移动端需要@2x 或者@3x 的图片 ?
+
+:::tip
+
+移动端开发过程中，@2x 或者@3x 的图标，是因为手机的 dpr(设备像素比不同)，我们> 需要根据 dpr 来修改不同大小的图标，来解决不同设备用户视觉体验。 dpr=2 说明 1css 最小像素点对应 2 个物理像素，如果图片的 ui 最小宽度达不到会出现失真
+
+:::
 
 ```less
 @media screen and (-webkit-min-device-pixel-ratio: 2) {

@@ -1,87 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Vue</title>
-	</head>
-	<body>
-		<script>
-			const bucket = new WeakMap()
-			const data = { ok: true, text: 'hello,world' }
-			const obj = new Proxy(data, {
-				get(target, key) {
-					track(target, key)
-					return target[key]
-				},
-				set(target, key, newVal) {
-					target[key] = newVal
-					trigger(target, key)
-					return true
-				}
-			})
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        width: 0.01rem;
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sss">1</div>
+    <script>
+      function adapter() {
+        const dip = document.documentElement.clientWidth
+        // 设置根字体大小为100px
+        const rootFontSize = (dip * 100) / 375
+        document.documentElement.style.fontSize = rootFontSize + 'px'
+      }
+      adapter()
 
-			function track(target, key) {
-				if (!activeEffect) return
+      window.addEventListener('resize', adapter)
 
-				// 如果不存在这个代理的数据 新增
-				let depsMap = bucket.get(target)
-				if (!depsMap) {
-					bucket.set(target, (depsMap = new Map()))
-				}
-				// 代理数据中的属性没有 新增
-				let deps = depsMap.get(key)
-				if (!deps) {
-					depsMap.set(key, (deps = new Set()))
-				}
-				deps.add(activeEffect)
-				// 调用时添加
-				activeEffect.deps.push(deps)
-			}
+      // 对应：375px/100px = 3.75rem   100px ----> 100px/3.75rem
+      /*
 
-			function trigger(target, key) {
-				// 找出对应属性的副作用函数
-				let depsMap = bucket.get(target)
-				if (!depsMap) return
-				// set()
-				let effects = depsMap.get(key)
-				const effectsRun = new Set(effects)
+      fontSize:100px  ----> 设计值/100
+        375px ----> 375px/100px  ----> 3.75rem
+        1rem  ----> 375px/3.75rem   ---->  100px
+        1px   ----> 1rem/100px ----> 0.01rem
 
-				// 进行更新 需要执行副作用函数
-				effectsRun && effectsRun.forEach(fn => fn())
-			}
+      fontSize:37.5px ----> 设计值/(设计稿宽度/10)
+        375px ----> 375px/37.5px ----> 10rem
+        1rem  ----> 375px/10rem  ----> 37.5px
+        1px   ----> 1rem/37.5px  ----> 0.026...rem
 
-			// 默认第一次执行就是为()=>{ document.body.innerText = obj.text }
-			let activeEffect
-			// 相当于包装一层,利用回调函数进行去除名称
-			function effect(fn) {
-				const effectFn = () => {
-					// 执行时先清除
-					cleanup(effectFn)
-					activeEffect = effectFn
-					fn()
-				}
-				effectFn.deps = []
-				effectFn()
-			}
+      */
 
-			function cleanup(effectFn) {
-				for (let i = 0; i < effectFn.deps.length; i++) {
-					const deps = effectFn.deps[i]
-					deps.delete(effectFn)
-				}
-				effectFn.deps.length = 0
-			}
+      // let layoutWidth = document.documentElement.clientWidth
+      // let visWidth = window.innerWidth
+      // let screenWidth = screen.width
+      // let dpr = window.devicePixelRatio
 
-			effect(() => {
-				console.log('打印***effect Run')
-				document.body.innerText = obj.ok ? obj.text : 'not'
-			})
-
-			setTimeout(() => {
-				obj.ok = false
-			}, 2000)
-		</script>
-	</body>
+      // document.getElementById('sss').innerText = `
+      // 布局视口宽度：${layoutWidth}
+      // 视觉视口宽度：${visWidth}
+      // 理想视口宽度：${screenWidth}
+      // 设备像素比：${dpr}
+      // `
+    </script>
+  </body>
 </html>
