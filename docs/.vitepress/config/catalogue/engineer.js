@@ -112,6 +112,7 @@ const engineerSidebar = {
       items: [
         { text: '前言', link: '/pages/engineer/deploy/' },
         { text: 'git actions docker', link: '/pages/engineer/deploy/git-docker.md' },
+        { text: 'nginx', link: '/pages/engineer/deploy/nginx.md' },
       ],
     },
   ],
