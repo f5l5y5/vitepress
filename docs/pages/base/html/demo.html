@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 100px;
+        height: 100px;
+        overflow: auto;
+        border: 1px solid pink;
+        padding: 10px; /* 包含padding */
+        background-color: skyblue;
+      }
+      .container div {
+        height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>11111111111111111111</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+      <div>5</div>
+      <div>6</div>
+    </div>
+  </body>
+
+  <script>
+    const dom = document.querySelector('.container')
+    console.log(dom.scrollHeight, dom.clientHeight, dom.scrollWidth, dom.clientWidth)
+    // 132  =  100 + 20 padding + 12超出部分  120有滚动条105  // 198 = 100 + p20 + 超出部分78  120 =》105
+    // 检测是否到底部
+    dom.onscroll = function (e) {
+      console.log(dom.scrollHeight - dom.clientHeight - dom.scrollTop)
+      console.log('打印***dom', dom.scrollLeft, dom.scrollTop)
+    }
+    dom.scrollLeft = 100
+    dom.scrollTop = 100
+    console.log('打印***dom', dom.offsetHeight, dom.offsetTop) // 100 + pad
+    // 能否滚动
+    console.log(window.getComputedStyle(dom).overflowY) // auto
+    console.log(window.getComputedStyle(dom).overflowX)
+  </script>
+</html>
