@@ -63,6 +63,7 @@ const advancedSidebar = {
         { link: '/pages/advanced/network/', text: '网络简介' },
         { link: '/pages/advanced/network/http', text: 'http状态码' },
         { link: '/pages/advanced/network/CORS', text: '跨域详解' },
+        { link: '/pages/advanced/network/cache', text: '缓存详解' },
       ],
     },
   ],
