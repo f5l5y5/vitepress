@@ -250,3 +250,6 @@ add_header 'Cache-Control' "public, no-cache";
 只关闭 last
 
 expires 会加入 cache-control 设置为 max-age xxx
+
+
+## 4. Nginx配置缓存
