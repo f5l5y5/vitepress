@@ -251,5 +251,126 @@ add_header 'Cache-Control' "public, no-cache";
 
 expires 会加入 cache-control 设置为 max-age xxx
 
+## 4. Nginx 配置缓存
 
-## 4. Nginx配置缓存
+## 1. 强缓存和协商缓存参数设置
+
+- 强缓存：默认读取本地资源，不发送请求
+  - Pragma：no cache // 需要校验服务器文件新鲜度
+  - Cache-Control: max-age:xxx 秒
+  - Expires: 过期时间设置 秒 可设置 1d 等
+- 协商缓存：需要校验文件的新鲜度，有两组请求头进行设置
+  - Last-Modified-If-Modified-Since
+  - ETag-If-None-Match
+
+## 2. nginx 如何配置强缓存和协商缓存
+
+使用 docker 进行模式
+
+### 2.1 nginx 通用配置
+
+```js
+server {
+    listen       80;
+    server_name  localhost;
+
+    #charset koi8-r;
+    access_log  /var/log/nginx/host.access.log  main;
+    error_log  /var/log/nginx/error.log  error;
+
+    location / {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Headers' '*';
+        add_header 'Access-Control-Allow-Methods' '*';
+        # OPTIONS 直接返回204
+        if ($request_method = 'OPTIONS') {
+                return 204;
+        }
+        root   /usr/share/nginx/html;
+        # index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+
+```
+
+### 2.2 默认不设置开启协商缓存
+
+**第一次请求** ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/db07a4220ed944489cd25460b8a68ace~tplv-k3u1fbpfcp-watermark.image?) **第二次刷新 从内存读取** ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7d65c0b0d2b14a9c9999c326e74bf892~tplv-k3u1fbpfcp-watermark.image?) 返回 304 ![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9d383ef20049415fb084b875e1b6d08d~tplv-k3u1fbpfcp-watermark.image?)
+
+### 2.3 全部禁用
+
+```js
+# 全部禁用
+expires -1;
+add_header Cache-Control "no-cache, no-store, must-revalidate, max-age=0";
+```
+
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a9971a59416f4c329a7b0bc84df131de~tplv-k3u1fbpfcp-watermark.image?)
+
+### 2.4 开启强缓存
+
+- 使用 expires 参数
+  - 转化成 Cache-Control 参数
+  - 强缓存 -1 不使用缓存 max 最大值 315360000
+
+```js
+expires 4;
+
+# 关闭 etag
+# etag off;
+
+# 关闭 Last-Modified
+add_header Last-Modified "";
+```
+
+第一次 关注 Expires 字段 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2f8ad560f42e443b97020a4b2ac0fdcd~tplv-k3u1fbpfcp-watermark.image?) 再次刷新 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/904506c1863e4587bb20032076ba389a~tplv-k3u1fbpfcp-watermark.image?)
+
+- 使用 Cache-Control 参数
+
+```js
+add_header 'Cache-Control' "max-age=10";
+```
+
+第一次
+
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/13f433ffbdee452782f8b57a9eab01ca~tplv-k3u1fbpfcp-watermark.image?)
+
+第二次 刷新 ![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3c46da53c9514995ba28f19c07cf8330~tplv-k3u1fbpfcp-watermark.image?)
+
+超过时间
+
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/64df76b134844ac0a93d45bd5b66c14a~tplv-k3u1fbpfcp-watermark.image?)
+
+- 同时存在
+
+```js
+
+add_header 'Cache-Control' "max-age=30";
+expires 4; // 会转化，还是以这个为准
+```
+
+### 2.5 开启协商缓存
+
+默认就是开启
+
+### 2.6 开启强缓存和协商缓存
+
+以协商缓存为准
+
+```js
+# 强缓存 以expires为准
+add_header 'Cache-Control' "public, max-age=10";
+
+# 协商缓存
+add_header 'Cache-Control' "no-cache";
+```
+
+![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eec9731cfafa4484b40bb95bbf412b5c~tplv-k3u1fbpfcp-watermark.image?)
+
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/20c370ccdb064568993294bcf77c4072~tplv-k3u1fbpfcp-watermark.image?)

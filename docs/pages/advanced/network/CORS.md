@@ -539,9 +539,9 @@ server {
 </body>
 <script>
   document.getElementById('frame').onload = function () {
-    this.contentWindow.postMessage({ name: '林三心', age: 23 }, 'http://127.0.0.1:5555')
+    this.contentWindow.postMessage({ name: 'jack', age: 23 }, 'http://127.0.0.1:5555')
     window.onmessage = function (e) {
-      console.log(e.data) // 林三心今年23岁啦！！！
+      console.log(e.data) // jack今年23岁啦！！！
     }
   }
 </script>
@@ -578,7 +578,7 @@ server {
 <script>
   document.domain = '127.0.0.1'
   document.getElementById('frame').onload = function () {
-    console.log(this.contentWindow.data) // 林三心今年23岁啦！！！
+    console.log(this.contentWindow.data) // jack今年23岁啦！！！
   }
 </script>
 ```
@@ -587,8 +587,8 @@ server {
 // http://127.0.0.1:5555/index.html
 
 <script>
-  // window.name="林三心今年23岁啦！！！"
+  // window.name="jack今年23岁啦！！！"
   document.domain = '127.0.0.1'
-  var data = '林三心今年23岁啦！！！'
+  var data = 'jack今年23岁啦！！！'
 </script>
 ```
