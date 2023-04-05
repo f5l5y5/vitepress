@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./app.7f1eebc9.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"pages/frame/vue/permission.md","lastUpdated":1680733190000}'),s={name:"pages/frame/vue/permission.md"};function r(o,n,p,c,i,m){return a(),t("div")}const f=e(s,[["render",r]]);export{_ as __pageData,f as default};
