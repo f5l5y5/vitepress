@@ -30,7 +30,11 @@ const projectSidebar = {
       text: '移动端开发基础',
       collapsable: true,
       sidebarDepth: 3,
-      items: [{ link: '/pages/project/code/vueStandard', text: 'vue项目规范' }],
+      items: [
+        { link: '/pages/project/code/vueStandard', text: 'vue项目规范' },
+        { link: '/pages/project/code/error', text: '前端错误总结' },
+        { link: '/pages/project/code/errorHandler', text: '错误处理捕获方式总结' },
+      ],
     },
   ],
   '/pages/project/toC/': [
