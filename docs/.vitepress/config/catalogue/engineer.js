@@ -132,7 +132,10 @@ const engineerSidebar = {
       text: 'vuepress',
       collapsable: true,
       sidebarDepth: 2,
-      children: [''],
+      items: [
+        { link: '/pages/engineer/vuepress/', text: 'vuepress/vitepress搭建' },
+        { link: '/pages/engineer/vuepress/vitepress.md', text: 'vitepress 添加 Algolia 搜索' },
+      ],
     },
   ],
 }
