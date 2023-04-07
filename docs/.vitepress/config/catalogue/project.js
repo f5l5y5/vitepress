@@ -34,6 +34,7 @@ const projectSidebar = {
         { link: '/pages/project/code/vueStandard', text: 'vue项目规范' },
         { link: '/pages/project/code/error', text: '前端错误总结' },
         { link: '/pages/project/code/errorHandler', text: '错误处理捕获方式总结' },
+        { link: '/pages/project/code/vim', text: 'vscode使用vim操作' },
       ],
     },
   ],
