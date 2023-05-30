@@ -1,0 +1,1 @@
+import{_ as e,c as r,o as t}from"./app.fe826405.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"pages/project/code/errorHandler.md","lastUpdated":1685438566000}'),a={name:"pages/project/code/errorHandler.md"};function o(c,s,n,d,p,_){return t(),r("div")}const m=e(a,[["render",o]]);export{i as __pageData,m as default};
