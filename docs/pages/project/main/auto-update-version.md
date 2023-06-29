@@ -5,8 +5,6 @@
 ```sh
 
 #!/usr/bin/env sh
-
-
 echo 'push1'
 
 branch=$(git rev-parse --abbrev-ref HEAD)
@@ -21,9 +19,6 @@ if [ "$branch" = "tag-test" ]; then
   echo "Updated package.json version to $version"
 fi
 
-
-
-
 ```
 
 当推送分支时，脚本被触发并执行以下操作：
@@ -36,7 +31,7 @@ fi
 
    这行代码使用`git symbolic-ref --short HEAD`命令获取当前所在的分支名，并将其存储在变量`branch`中。
 
-- git rev-parse --abbrev-ref HEAD：这个命令在任何情况下都会输出一些内容。如果当前处于一个分支，它会输出分支名；如果当前处于一个没有分支名的提交（比如通过 git checkout <commit-hash> 命令检出某个提交），或者在一个初始的、还没有任何提交的仓库中，它会输出 HEAD。
+- git rev-parse --abbrev-ref HEAD：这个命令在任何情况下都会输出一些内容。如果当前处于一个分支，它会输出分支名；如果当前处于一个没有分支名的提交（比如通过 git checkout \<commit-hash\> 命令检出某个提交），或者在一个初始的、还没有任何提交的仓库中，它会输出 HEAD。
 
 - git symbolic-ref --short -q HEAD：这个命令只在当前处于一个分支时输出分支名。如果当前处于一个没有分支名的提交，或者在一个初始的、还没有任何提交的仓库中，它不会输出任何内容，而且会返回一个非零的退出状态码（可以通过 $? 变量查看）。
 
@@ -44,7 +39,6 @@ fi
 
    ```shell
    if [ "$branch" = "master" ]; then
-     ...
    fi
    ```
 
