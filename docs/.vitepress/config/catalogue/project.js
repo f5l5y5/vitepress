@@ -23,6 +23,7 @@ const projectSidebar = {
         { link: '/pages/project/main/commitlint', text: 'husky+lint-staged+commitlint' },
         { link: '/pages/project/main/oss', text: '打包上传ali-oss' },
         { link: '/pages/project/main/vscode-plugins', text: 'vscode插件集合' },
+        { link: '/pages/project/main/auto-update-version', text: '自动更新版本' },
       ],
     },
   ],
