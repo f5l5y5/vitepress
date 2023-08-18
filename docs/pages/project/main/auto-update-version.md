@@ -79,3 +79,34 @@ fi
    这行代码使用`echo`命令打印出更新后的版本号信息，以供用户查看。
 
 这个脚本的目的是在推送 master 分支时，根据最新的 tag 版本自动更新 package.json 文件中的版本号。请确保您在执行这个脚本之前已经安装了必要的依赖，并且正确设置了相关的 Git 钩子。
+
+## 2. 只更新推送特定分支版本
+
+```shell
+
+#!/usr/bin/env sh
+
+# 获取版本
+version=$(node -p "require('./package.json').version")
+echo "Version: $version"
+# 获取分支
+branch=$(git rev-parse --abbrev-ref HEAD)
+branch_version=${branch##*/}
+
+echo $branch
+echo $branch_version
+
+# 是否是release或者hotfix分支
+if [[ "$branch" =~ ^release.*|^hotfix.* ]] ; then
+# 判断版本是否一致
+if [[ $version != $branch_version ]]; then
+	sed -i 's|"version": "v[0-9.]*"|"version": "'$branch_version'"|g' ./package.json
+	git add package.json
+	git commit -m "update version to $branch_version" --no-verify
+
+fi
+  echo "Branch starts with release or hotfix${latestTag} ${version}"
+fi
+
+
+```
