@@ -8,6 +8,7 @@ export default {
   description: '前端笔记',
   head: [
     ['link', { rel: 'icon', href: '/logo.jpeg' }], //浏览器的标签栏的网页图标
+    ["meta", { name: "referrer", content: "same-origin" }]
   ],
   serviceWorker: true,
   appearance: true,
